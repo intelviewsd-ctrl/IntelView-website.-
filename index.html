@@ -1,1 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IntelView Security Distribution</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Global Styles */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: url("https://images.unsplash.com/photo-1581092334700-445e9f3d2e2e") no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+    }
+    header {
+      background: rgba(0,0,0,0.8);
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.5em;
+    }
+    #searchBar {
+      display: flex;
+      gap: 8px;
+    }
+    #searchInput {
+      padding: 5px;
+      border-radius: 4px;
+      border: none;
+      outline: none;
+    }
+    #clearSearch {
+      padding: 5px 10px;
+      border: none;
+      background: #e74c3c;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    main {
+      text-align: center;
+      padding: 60px 20px;
+    }
+    .departments {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .dept {
+      background: rgba(0,0,0,0.7);
+      padding: 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 200px;
+      transition: 0.3s;
+    }
+    .dept:hover {
+      background: rgba(0,0,0,0.9);
+    }
+    footer {
+      background: rgba(0,0,0,0.8);
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+    }
 
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: #fff;
+      color: #000;
+      padding: 20px;
+      width: 80%;
+      max-width: 600px;
+      border-radius: 8px;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    .modal-content h2 {
+      margin-top: 0;
+    }
+    .close {
+      float: right;
+      font-size: 20px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .product {
+      padding: 8px;
+      margin: 5px 0;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #ccc;
+    }
+    .product img {
+      width: 60px;
+      height: 60px;
+      margin-right: 10px;
+      border-radius: 4px;
+    }
+    .highlight {
+      background: yellow;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <h1>IntelView Security Distribution</h1>
+    <div id="searchBar">
+      <input type="text" id="searchInput" placeholder="Search products...">
+      <button id="clearSearch">Clear</button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <h2>Our Departments</h2>
+    <div class="departments">
+      <div class="dept" onclick="openModal('cctv')">CCTV</div>
+      <div class="dept" onclick="openModal('access')">Access Control</div>
+      <div class="dept" onclick="openModal('burglar')">Burglar Alarm</div>
+      <div class="dept" onclick="openModal('fire')">Fire Detection</div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>Address: Cité El Bokri Sidi Thabet Ariana</p>
+    <p>Phone: 0021626531527 | Email: intelviewsd@gmail.com</p>
+  </footer>
+
+  <!-- All Products Modal -->
+  <div class="modal" id="allProducts">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('allProducts')">&times;</span>
+      <h2>All Products</h2>
+
+      <h3>CCTV</h3>
+      <div class="product"><img src="https://via.placeholder.com/60" alt="">CCTV Camera HD 1080P - Ref: CCTV001</div>
+      <div class="product"><img src="https://via.placeholder.com/60" alt="">IP Dome Camera - Ref: CCTV002</div>
+      <div class="product"><img src="https://via.placeholder.com/60" alt="">NVR 16 Channels - Ref: CCTV003</div>
+
+      <h3>Access Control</h3>
+      <div class="product"><img src="https://via.placeholder.com/60" alt="">RFID Reader - Ref: ACC001</div>
+      <div class="product"><img src="https://via.placeholder.com/60" alt="">Access Card - Ref: ACC002</div>
+      <div class="product"><img src="https://via.placeholder.com/60" alt="">Door Controller - Ref: ACC003</div>
+
+      <h3>Burglar Alarm</h3>
+      <div class="product"><img src="https://via.placeholder.com/60" alt="">Motion Detector - Ref: ALM001</div>
+      <div class="product"><img src="https://via.placeholder.com/60" alt="">Alarm Siren - Ref: ALM002</div>
+      <div class="product"><img src="https://via.placeholder.com/60" alt="">Control Panel - Ref: ALM003</div>
+
+      <h3>Fire Detection</h3>
+      <div class="product"><img src="https://via.placeholder.com/60" alt="">Smoke Detector - Ref: FIRE001</div>
+      <div class="product"><img src="https://via.placeholder.com/60" alt="">Heat Sensor - Ref: FIRE002</div>
+      <div class="product"><img src="https://via.placeholder.com/60" alt="">Fire Alarm Panel - Ref: FIRE003</div>
+    </div>
+  </div>
+
+  <!-- CCTV Modal -->
+  <div class="modal" id="cctv">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('cctv')">&times;</span>
+      <h2>CCTV Products</h2>
+      <div class="product"><img src="https://via.placeholder.com/60" alt="">CCTV Camera HD 1080P - Ref: CCTV001</div>
+      <div class="product"><img src="https://via.placeholder.com/60" alt="">IP Dome Camera - Ref: CCTV002</div>
+      <div class="product"><img src="https://via.placeholder.com/60" alt="">NVR 16 Channels - Ref: CCTV003</div>
+    </div>
+  </div>
+
+  <!-- Access Control Modal -->
+  <div class="modal" id="access">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('access')">&times;</span>
+      <h2>Access Control Products</h2>
+      <div class="product"><img src="https://via.placeholder.com/60" alt="">RFID Reader - Ref: ACC001</div>
+      <div class="product"><img src="https://via.placeholder.com/60" alt="">Access Card - Ref: ACC002</div>
+      <div class="product"><img src="https://via.placeholder.com/60" alt="">Door Controller - Ref: ACC003</div>
+    </div>
+  </div>
+
+  <!-- Burglar Alarm Modal -->
+  <div class="modal" id="burglar">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('burglar')">&times;</span>
+      <h2>Burglar Alarm Products</h2>
+      <div class="product"><img src="https://via.placeholder.com/60" alt="">Motion Detector - Ref: ALM001</div>
+      <div class="product"><img src="https://via.placeholder.com/60" alt="">Alarm Siren - Ref: ALM002</div>
+      <div class="product"><img src="https://via.placeholder.com/60" alt="">Control Panel - Ref: ALM003</div>
+    </div>
+  </div>
+
+  <!-- Fire Detection Modal -->
+  <div class="modal" id="fire">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('fire')">&times;</span>
+      <h2>Fire Detection Products</h2>
+      <div class="product"><img src="https://via.placeholder.com/60" alt="">Smoke Detector - Ref: FIRE001</div>
+      <div class="product"><img src="https://via.placeholder.com/60" alt="">Heat Sensor - Ref: FIRE002</div>
+      <div class="product"><img src="https://via.placeholder.com/60" alt="">Fire Alarm Panel - Ref: FIRE003</div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    function openModal(id) {
+      document.getElementById(id).style.display = 'flex';
+    }
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+
+    const searchInput = document.getElementById("searchInput");
+    const clearSearch = document.getElementById("clearSearch");
+    const allProductsModal = document.getElementById("allProducts");
+    const products = document.querySelectorAll("#allProducts .product");
+
+    let locked = false;
+
+    // Search function
+    searchInput.addEventListener("keyup", function(event) {
+      let filter = this.value.toLowerCase();
+
+      // If Enter is pressed → lock results
+      if (event.key === "Enter") {
+        locked = true;
+        return;
+      }
+
+      if (locked) return; // Do nothing if locked
+
+      filterProducts(filter);
+    });
+
+    // Clear search
+    clearSearch.addEventListener("click", function() {
+      searchInput.value = "";
+      locked = false;
+      products.forEach(p => {
+        p.style.display = "";
+        p.classList.remove("highlight");
+      });
+      allProductsModal.style.display = "none";
+      document.getElementById("noResultsMessage")?.remove();
+    });
+
+    function filterProducts(filter) {
+      // Create "no results" message if not exists
+      let noResults = document.getElementById("noResultsMessage");
+      if (!noResults) {
+        noResults = document.createElement("div");
+        noResults.id = "noResultsMessage";
+        noResults.style.color = "red";
+        noResults.style.fontWeight = "bold";
+        noResults.style.marginTop = "10px";
+        allProductsModal.querySelector(".modal-content").appendChild(noResults);
+      }
+
+      if (filter === "") {
+        allProductsModal.style.display = "none";
+        products.forEach(p => {
+          p.style.display = "";
+          p.classList.remove("highlight");
+        });
+        noResults.textContent = "";
+        return;
+      }
+
+      allProductsModal.style.display = "flex";
+
+      let matchCount = 0;
+      let firstMatch = null;
+
+      products.forEach(function(product) {
+        let text = product.textContent.toLowerCase();
+        product.classList.remove("highlight");
+
+        if (text.includes(filter)) {
+          product.style.display = "flex";
+          product.classList.add("highlight");
+          if (!firstMatch) firstMatch = product;
+          matchCount++;
+        } else {
+          product.style.display = "none";
+        }
+      });
+
+      if (matchCount === 0) {
+        noResults.textContent = "No results found.";
+      } else {
+        noResults.textContent = "";
+        if (firstMatch) {
+          firstMatch.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      }
+    }
+  </script>
+</body>
+</html>
